@@ -23,6 +23,7 @@ jobs:
           env | sort
           cat .gitignore || echo "file does not exist"
           find .git/info/ || echo ".git/info/ does not exist"
+          cat .git/info/exclude || echo ".git/info/exclude does not exist"
           find required/ || echo "required/ does not exist"
 
       - name: Trunk Check
