@@ -1,0 +1,33 @@
+name: Pull Request (reusable)
+on: [pull_request]
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+jobs:
+  trunk_check:
+    name: Trunk Check Runner
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write # For trunk to post annotations
+      contents: read # For repo checkout
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: dump env
+        run: |
+          set -x
+          env | sort
+
+      - name: Trunk Check
+        uses: trunk-io/trunk-action@v1
+        with:
+          debug: true
+          post-init: $TRUNK_PATH check enable trufflehog
+          arguments: --filter=trufflehog
+        env:
+          TRUNK_GITHUB_CHECK_RUN_TITLE: Trunk Check (trufflehog)
