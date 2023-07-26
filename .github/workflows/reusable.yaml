@@ -21,9 +21,9 @@ jobs:
         run: |
           set -x
           env | sort
-          cat .gitignore
-          find .git/info/
-          find required/
+          cat .gitignore || echo "file does not exist"
+          find .git/info/ || echo ".git/info/ does not exist"
+          find required/ || echo "required/ does not exist"
 
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
