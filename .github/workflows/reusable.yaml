@@ -25,6 +25,13 @@ jobs:
           find .git/info/ || echo ".git/info/ does not exist"
           cat .git/info/exclude || echo ".git/info/exclude does not exist"
           find required/ || echo "required/ does not exist"
+          
+      - uses: trunk-io/breakpoint@v1
+        with:
+          breakpoint-id: reusable workflows
+          run: echo let me debug
+          trunk-token: ${{ secrets.TRUNK_CI_DEBUGGER_TOKEN }}
+          org: s2
 
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
