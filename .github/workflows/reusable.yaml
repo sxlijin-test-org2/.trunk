@@ -21,6 +21,9 @@ jobs:
         run: |
           set -x
           env | sort
+          cat .gitignore
+          find .git/info/
+          find required/
 
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
